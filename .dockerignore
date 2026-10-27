@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: react-app
-          image: DOCKERHUB_USERNAME/react-eks-cicd:latest
+         image: smarika256/react-eks-cicd:latest
           ports:
             - containerPort: 80
             apiVersion: v1
@@ -41,4 +41,3 @@ spec:
   ports:
     - port: 80
       targetPort: 80
-      
