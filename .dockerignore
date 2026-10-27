@@ -1,43 +1,5 @@
-# Stage 1: React app build 
-FROM node:20-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-# Stage 2: Nginx  serve
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: react-app
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: react-app
-  template:
-    metadata:
-      labels:
-        app: react-app
-    spec:
-      containers:
-        - name: react-app
-         image: smarika256/react-eks-cicd:latest
-          ports:
-            - containerPort: 80
-            apiVersion: v1
-kind: Service
-metadata:
-  name: react-app-service
-spec:
-  type: LoadBalancer
-  selector:
-    app: react-app
-  ports:
-    - port: 80
-      targetPort: 80
+node_modules
+dist
+.git
+screenshots
+terraform
